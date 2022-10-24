@@ -1,6 +1,6 @@
 {
   "name": "@wingriders/dex-serializer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "module": "dist/index.esm.js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -13,12 +13,12 @@
     "test": "jest"
   },
   "peerDependencies": {
-    "@dcspark/cardano-multiplatform-lib-browser": "3.0.1",
-    "@dcspark/cardano-multiplatform-lib-nodejs": "^3.0.1"
+    "@dcspark/cardano-multiplatform-lib-browser": "^3.1.0",
+    "@dcspark/cardano-multiplatform-lib-nodejs": "^3.1.0"
   },
   "devDependencies": {
-    "@dcspark/cardano-multiplatform-lib-browser": "3.0.1",
-    "@dcspark/cardano-multiplatform-lib-nodejs": "^3.0.1",
+    "@dcspark/cardano-multiplatform-lib-browser": "^3.1.0",
+    "@dcspark/cardano-multiplatform-lib-nodejs": "^3.1.0",
     "@types/jest": "^29.0.0",
     "esbuild": "^0.15.7",
     "esbuild-plugin-resolve": "^1.0.3",

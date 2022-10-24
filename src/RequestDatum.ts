@@ -102,6 +102,60 @@ export class SwapAction implements RequestAction {
   }
 }
 
+export class AddLiquidityAction implements RequestAction {
+  constructor(public minWanted: BigInt) {}
+
+  static from_plutus_data(data: ConstrPlutusData): RequestAction {
+    if (data.alternative().to_str() !== "1") {
+      throw new Error("[AddLiquidityAction] invalid action type");
+    }
+    const fields = data.data();
+    const minWanted = fields.get(0).as_integer();
+    if (!minWanted) {
+      throw new Error("[AddLiquidityAction] invalid fields");
+    }
+    return new AddLiquidityAction(minWanted);
+  }
+
+  to_plutus_data(): PlutusData {
+    return PlutusData.new_constr_plutus_data(
+      ConstrPlutusData.new(
+        BigNum.from_str("1"),
+        plutus_list_from_list([PlutusData.new_integer(this.minWanted)])
+      )
+    );
+  }
+}
+
+export class RemoveLiquidityAction implements RequestAction {
+  constructor(public minWantedA: BigInt, public minWantedB: BigInt) {}
+
+  static from_plutus_data(data: ConstrPlutusData): RequestAction {
+    if (data.alternative().to_str() !== "2") {
+      throw new Error("[RemoveLiquidityAction] invalid action type");
+    }
+    const fields = data.data();
+    const minWantedA = fields.get(0).as_integer();
+    const minWantedB = fields.get(1).as_integer();
+    if (!minWantedA || !minWantedB) {
+      throw new Error("[RemoveLiquidityAction] invalid fields");
+    }
+    return new RemoveLiquidityAction(minWantedA, minWantedB);
+  }
+
+  to_plutus_data(): PlutusData {
+    return PlutusData.new_constr_plutus_data(
+      ConstrPlutusData.new(
+        BigNum.from_str("2"),
+        plutus_list_from_list([
+          PlutusData.new_integer(this.minWantedA),
+          PlutusData.new_integer(this.minWantedB),
+        ])
+      )
+    );
+  }
+}
+
 export class RequestDatum {
   constructor(public metadata: RequestMetadaDatum, public action: RequestAction) {}
 
@@ -127,6 +181,10 @@ export class RequestDatum {
       switch (pAction.alternative().to_str()) {
         case "0":
           return SwapAction.from_plutus_data(pAction);
+        case "1":
+          return AddLiquidityAction.from_plutus_data(pAction);
+        case "2":
+          return RemoveLiquidityAction.from_plutus_data(pAction);
         default:
           throw new Error("[Request] not implemented");
       }
