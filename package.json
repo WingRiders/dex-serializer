@@ -1,6 +1,6 @@
 {
   "name": "@wingriders/dex-serializer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "module": "dist/index.esm.js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
