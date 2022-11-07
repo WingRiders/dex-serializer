@@ -1,0 +1,9 @@
+test/*
+src/
+config/
+.github
+build.js
+jest.config.js
+.editorconfig
+.prettierrc.yaml
+
