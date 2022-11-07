@@ -5,13 +5,7 @@ Uses `@dcspark/cardano-multiplatform-lib` as a serializer and for support for ca
 
 ## Installation
 
-Please add to your `.npmrc`
-
-```
-@wingriders:registry=https://npm.pkg.github.com
-```
-
-Afterwards you will be able to install the package with:
+Install the package with:
 
 ```bash
 npm install @wingriders/dex-serializer

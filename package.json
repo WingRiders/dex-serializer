@@ -4,7 +4,7 @@
   "module": "dist/index.esm.js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "license": "MIT",
+  "license": "ISC",
   "repository": {
     "url": "https://github.com/WingRiders/dex-serializer"
   },
@@ -27,8 +27,5 @@
     "npm-dts": "^1.3.12",
     "ts-jest": "^29.0.0",
     "typescript": "^4.8.3"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   }
 }
