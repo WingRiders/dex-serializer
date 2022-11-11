@@ -5,6 +5,13 @@ export { Maybe } from "./Maybe";
 
 // WingRiders datums
 export { LiquidityPoolDatum } from "./LiquidityPoolDatum";
-export { RequestDatum } from "./RequestDatum";
+export {
+  RequestDatum,
+  RequestMetadaDatum,
+  SwapAction,
+  SwapDirection,
+  AddLiquidityAction,
+  RemoveLiquidityAction,
+} from "./RequestDatum";
 export { VestingDatum } from "./VestingDatum";
 export { FarmDatum } from "./FarmDatum";
