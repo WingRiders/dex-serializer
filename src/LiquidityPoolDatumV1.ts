@@ -30,7 +30,7 @@ export class LiquidityPool {
   }
 }
 
-export class LiquidityPoolDatum {
+export class LiquidityPoolDatumV1 {
   constructor(
     public requestScriptHash: ScriptHash,
     public assetA: AssetClass,
@@ -39,8 +39,8 @@ export class LiquidityPoolDatum {
     public lastInteracted: BigInt
   ) {}
 
-  static from_hex(hexString: string): LiquidityPoolDatum {
-    return LiquidityPoolDatum.from_plutus_data(plutus_data_from_hex(hexString));
+  static from_hex(hexString: string): LiquidityPoolDatumV1 {
+    return LiquidityPoolDatumV1.from_plutus_data(plutus_data_from_hex(hexString));
   }
 
   static from_plutus_data(pData: PlutusData) {
@@ -72,7 +72,7 @@ export class LiquidityPoolDatum {
     treasury = value_add_assetclass(treasury, assetA, treasuryA);
     treasury = value_add_assetclass(treasury, assetB, treasuryB);
 
-    return new LiquidityPoolDatum(requestScriptHash, assetA, assetB, treasury, lastInteracted);
+    return new LiquidityPoolDatumV1(requestScriptHash, assetA, assetB, treasury, lastInteracted);
   }
 
   to_plutus_data(): PlutusData {

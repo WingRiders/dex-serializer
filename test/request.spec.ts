@@ -1,12 +1,7 @@
 import { Address, BigInt, Ed25519KeyHash, StakeCredential } from "@dcspark/cardano-multiplatform-lib-browser";
 import { AssetClass } from "../src/AssetClass";
-import {
-  AddLiquidityAction,
-  RequestDatum,
-  RequestMetadaDatum,
-  SwapAction,
-  SwapDirection,
-} from "../src/RequestDatum";
+import { RequestDatumV1, RequestMetadaDatum } from "../src/RequestDatumV1";
+import { AddLiquidityAction, SwapAction, SwapDirection } from "../src/RequestCommon";
 
 const swapRequestCbor =
   "d8799fd8799fd8799fd8799f581cdefbd3ccbfc23de364d7409df5b467f70ac39004020d8a8cec9b5d78ffd8799fd8799fd8799f581cf3300f150b42053474806855c22c47058d6a884332cff86ffd5f75b7ffffffff581cdefbd3ccbfc23de364d7409df5b467f70ac39004020d8a8cec9b5d781b0000018327f05d18d8799fd8799f4040ffd8799f581c8fef2d34078659493ce161a6c7fba4b56afefa8535296a5743f695874441414441ffffffd8799fd87a801a23c8cf8effff";
@@ -16,7 +11,7 @@ const addLiquidityRequestCbor =
 
 describe("request", () => {
   it("swap from cbor", () => {
-    const request = RequestDatum.from_hex(swapRequestCbor, { networkId: 1 });
+    const request = RequestDatumV1.from_hex(swapRequestCbor, { networkId: 1 });
     expect(request.metadata.beneficiary.to_bech32()).toBe(
       "addr1q800h57vhlprmcmy6aqfmad5vlms4susqspqmz5vajd4678nxq832z6zq568fqrg2hpzc3c9344gssejeluxll2lwkmsya902a"
     );
@@ -48,13 +43,13 @@ describe("request", () => {
 
   it("swap to plutus cbor", () => {
     const swapAction = new SwapAction(SwapDirection.BTOA, BigInt.from_str("600362894"));
-    const request = new RequestDatum(metadata, swapAction);
+    const request = new RequestDatumV1(metadata, swapAction);
 
     expect(Buffer.from(request.to_plutus_data().to_bytes()).toString("hex")).toBe(swapRequestCbor);
   });
 
   it("add from cbor", () => {
-    const request = RequestDatum.from_hex(addLiquidityRequestCbor, { networkId: 1 });
+    const request = RequestDatumV1.from_hex(addLiquidityRequestCbor, { networkId: 1 });
     expect(request.action).toBeInstanceOf(AddLiquidityAction);
     const addLiquidityAction = request.action as AddLiquidityAction;
     expect(addLiquidityAction.minWanted.to_str()).toBe("180799481");
@@ -62,7 +57,7 @@ describe("request", () => {
 
   it("add to plutus cbor", () => {
     const addLiquidityAction = new AddLiquidityAction(BigInt.from_str("180799481"));
-    const request = new RequestDatum(metadata, addLiquidityAction);
+    const request = new RequestDatumV1(metadata, addLiquidityAction);
 
     expect(Buffer.from(request.to_plutus_data().to_bytes()).toString("hex")).toBe(addLiquidityRequestCbor);
   });

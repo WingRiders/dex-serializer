@@ -9,8 +9,10 @@ import {
 
 export class AssetClass {
   public readonly isAda: boolean;
-  constructor(private policyIdBuffer: Uint8Array, private assetNameBuffer: Uint8Array) {
+  constructor(readonly policyIdBuffer: Uint8Array, readonly assetNameBuffer: Uint8Array) {
     this.isAda = policyIdBuffer.length === 0 && assetNameBuffer.length === 0;
+    this.policyIdBuffer = policyIdBuffer;
+    this.assetNameBuffer = assetNameBuffer;
   }
 
   public policyId(): ScriptHash | undefined {

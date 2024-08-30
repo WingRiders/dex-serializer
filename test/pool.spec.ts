@@ -1,5 +1,5 @@
 import { BigNum, ScriptHash, Value, BigInt } from "@dcspark/cardano-multiplatform-lib-browser";
-import { LiquidityPoolDatum } from "../src/LiquidityPoolDatum";
+import { LiquidityPoolDatumV1 } from "../src/LiquidityPoolDatumV1";
 import { value_add_assetclass } from "../src/util";
 import { AssetClass } from "../src/AssetClass";
 
@@ -8,7 +8,7 @@ const poolCbor =
 
 describe("pool", () => {
   it("from cbor", () => {
-    const lp = LiquidityPoolDatum.from_hex(poolCbor)!;
+    const lp = LiquidityPoolDatumV1.from_hex(poolCbor)!;
     expect(lp.requestScriptHash.to_hex()).toBe("86ae9eebd8b97944a45201e4aec1330a72291af2d071644bba015959");
     expect(lp.assetA.policyIdHex()).toBe("");
     expect(lp.assetA.assetNameHex()).toBe("");
@@ -26,7 +26,7 @@ describe("pool", () => {
       "8fef2d34078659493ce161a6c7fba4b56afefa8535296a5743f69587",
       "41414441"
     );
-    const lp = new LiquidityPoolDatum(
+    const lp = new LiquidityPoolDatumV1(
       ScriptHash.from_hex("86ae9eebd8b97944a45201e4aec1330a72291af2d071644bba015959"),
       AssetClass.from_hex("", ""),
       assetB,
